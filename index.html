@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Big Rat - Interactive Fun</title>
+    <title>Big Rat - Premium Interactive Experience</title>
 
-    <meta property="og:title" content="Big Rat" />
-    <meta property="og:description" content="Now THAT'S a Rat!" />
+    <meta property="og:title" content="Big Rat - Premium Interactive Experience" />
+    <meta property="og:description" content="Now THAT'S a Rat! Experience the ultimate interactive 3D rat showcase with cheese clicker, facts, and cosmic visuals." />
     <meta property="og:image" content="https://raw.githubusercontent.com/zryr/big-rat/9f9a0b56c085cd06ee4726d7f51921d1c2f147c6/BigRat-Optimized.jpg" />
     <meta property="og:url" content="https://zryr.github.io/big-rat/" />
     <meta property="og:type" content="website" />
@@ -14,54 +14,435 @@
     <meta name="twitter:title" content="Big Rat" />
     <meta name="twitter:description" content="Now THAT'S a Rat!" />
     <meta name="twitter:image" content="https://raw.githubusercontent.com/zryr/big-rat/9f9a0b56c085cd06ee4726d7f51921d1c2f147c6/BigRat-Optimized.jpg" />
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0b0f19">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --glow-color-base: rgba(100, 130, 230, 0.1); 
-            --glow-color-interactive: rgba(130, 160, 255, 0.25); 
-            --image-border-color: rgba(200, 220, 255, 0.3);
-            --focus-outline-color: #79A1D9;
-            --levitation-distance: 10px;
-            --thickness-base-color: rgba(20, 20, 30, 0.7); 
-            --thickness-highlight-color: rgba(80, 90, 120, 0.6);
-            --thickness-depth-px: 4; 
-            --dynamic-thickness-highlight-opacity: 0; 
+            --glow-color-base: rgba(99, 102, 241, 0.2);
+            --glow-color-interactive: rgba(168, 85, 247, 0.35);
+            --image-border-color: rgba(255, 255, 255, 0.18);
+            --focus-outline-color: #818cf8;
+            --levitation-distance: 12px;
+            --thickness-base-color: rgba(15, 23, 42, 0.85);
+            --thickness-depth-px: 6;
+            --dynamic-thickness-highlight-opacity: 0;
+            --accent-gold: #fbbf24;
+            --accent-purple: #c084fc;
+            --accent-blue: #60a5fa;
+            --glass-bg: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-glow: rgba(99, 102, 241, 0.15);
         }
 
-        body { margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; perspective: 1200px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #000000; }
-        #starryBackgroundContainer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        #stars1, #stars2, #stars3 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-repeat: repeat; }
-        #stars1 { background-image: radial-gradient(1px 1px at 20% 30%, rgba(230,230,255,0.95), transparent), radial-gradient(2px 2px at 80% 10%, rgba(220,220,255,0.9), transparent), radial-gradient(1px 1px at 50% 70%, rgba(240,240,255,1), transparent), radial-gradient(2px 2px at 10% 90%, rgba(225,225,255,0.85), transparent), radial-gradient(1px 1px at 90% 50%, rgba(230,230,255,0.95), transparent), radial-gradient(1px 1px at 35% 5%, rgba(240,240,255,0.9), transparent); background-size: 350px 350px; animation: animStar 50s linear infinite; }
-        #stars2 { background-image: radial-gradient(2px 2px at 30% 60%, rgba(200,200,230,0.75), transparent), radial-gradient(3px 3px at 70% 40%, rgba(210,210,240,0.8), transparent), radial-gradient(1px 1px at 5% 5%, rgba(220,220,250,0.9), transparent), radial-gradient(2px 2px at 60% 85%, rgba(190,190,220,0.7), transparent), radial-gradient(3px 3px at 95% 15%, rgba(200,200,230,0.75), transparent), radial-gradient(2px 2px at 45% 45%, rgba(230,230,255,0.8), transparent); background-size: 500px 500px; animation: animStar 75s linear infinite reverse; }
-        #stars3 { background-image: radial-gradient(1px 1px at 15% 75%, rgba(240,240,255,1), transparent), radial-gradient(2px 2px at 85% 25%, rgba(225,225,255,0.9), transparent), radial-gradient(1px 1px at 55% 60%, rgba(230,230,255,0.95), transparent); background-size: 700px 700px; animation: animStar 100s linear infinite; }
-        @keyframes animStar { from { background-position: 0 0; } to { background-position: -10000px 5000px; } }
-        .shooting-star { position: absolute; width: 2px; height: 120px; background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), transparent); border-radius: 50%; opacity: 0; transform-origin: top center; pointer-events: none; }
-        
-        #introScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200; cursor: pointer; transition: opacity 0.5s ease-out, transform 0.5s ease-out; opacity: 1; }
-        #introScreen.hidden { opacity: 0; pointer-events: none; transform: scale(1.1); }
-        #introText { font-size: clamp(2.2rem, 6vw, 3.8rem); color: #fff; padding: 20px 40px; border-radius: 10px; text-align: center; animation: pulseTextGlowIntro 1.8s infinite ease-in-out; transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); will-change: text-shadow, transform; }
-        #introText.popped { transform: scale(1.2); animation: none; text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #ffeeaa; }
-        @keyframes pulseTextGlowIntro { 0%, 100% { text-shadow: 0 0 8px #fff, 0 0 18px #fff, 0 0 28px #ccc; } 50% { text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px #eee; } }
-        #introSubText { font-size: clamp(1rem, 2.5vw, 1.2rem); color: #bbb; margin-top: 15px; }
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-        .image-wrapper { position: relative; z-index: 0; cursor: grab; opacity: 0; transform: scale(0.5) rotateZ(-15deg) translateY(20px); transition: opacity 0.5s, transform 0.5s; outline: none; -webkit-tap-highlight-color: transparent; visibility: hidden; }
-        .image-wrapper.visible { visibility: visible; opacity: 0; animation: popIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0s; }
-        .image-wrapper:focus-visible { outline: 3px solid var(--focus-outline-color); outline-offset: 8px; border-radius: 18px; }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5) rotateZ(-15deg) translateY(20px); } 100% { opacity: 1; transform: scale(1) rotateZ(0deg) translateY(0px); } }
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1200px;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: #070913;
+            color: #f3f4f6;
+        }
+
+        /* Particle Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Starry Background */
+        #starryBackgroundContainer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
+        #stars1, #stars2, #stars3 { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-repeat: repeat; }
+        #stars1 { background-image: radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.9), transparent), radial-gradient(2px 2px at 80% 10%, rgba(192,132,252,0.8), transparent), radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.95), transparent), radial-gradient(2px 2px at 10% 90%, rgba(129,140,248,0.8), transparent), radial-gradient(1.5px 1.5px at 90% 50%, rgba(255,255,255,0.9), transparent); background-size: 350px 350px; animation: animStar 60s linear infinite; }
+        #stars2 { background-image: radial-gradient(2px 2px at 30% 60%, rgba(251,191,36,0.7), transparent), radial-gradient(3px 3px at 70% 40%, rgba(168,85,247,0.7), transparent), radial-gradient(1px 1px at 5% 5%, rgba(255,255,255,0.8), transparent), radial-gradient(2px 2px at 60% 85%, rgba(96,165,250,0.7), transparent); background-size: 500px 500px; animation: animStar 90s linear infinite reverse; }
+        #stars3 { background-image: radial-gradient(1.5px 1.5px at 15% 75%, rgba(255,255,255,0.9), transparent), radial-gradient(2.5px 2.5px at 85% 25%, rgba(251,191,36,0.8), transparent), radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.9), transparent); background-size: 700px 700px; animation: animStar 120s linear infinite; }
+        @keyframes animStar { from { background-position: 0 0; } to { background-position: -10000px 5000px; } }
+
+        /* Ambient Nebula Glows */
+        .nebula {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .nebula-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(168,85,247,0.6) 0%, transparent 70%); }
+        .nebula-2 { bottom: -10%; right: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(251,191,36,0.4) 0%, transparent 70%); }
+        .nebula-3 { top: 40%; left: 50%; transform: translate(-50%, -50%); width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%); }
+
+        /* Glassmorphism Common Class */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Glass Buttons */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f3f4f6;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            outline: none;
+            backdrop-filter: blur(8px);
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 12px rgba(168, 85, 247, 0.3);
+        }
+        .glass-btn:active {
+            transform: translateY(1px);
+        }
+        .glass-btn.primary {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(99, 102, 241, 0.4));
+            border-color: rgba(192, 132, 252, 0.4);
+        }
+        .glass-btn.primary:hover {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(99, 102, 241, 0.6));
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Intro Screen */
+        #introScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 9, 19, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            cursor: pointer;
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 1;
+        }
+        #introScreen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.08);
+        }
+        .intro-card {
+            text-align: center;
+            padding: 40px 60px;
+            max-width: 90%;
+            width: 520px;
+            position: relative;
+            overflow: hidden;
+        }
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        #introText {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: pulseTextGlowIntro 2s infinite ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            will-change: filter, transform;
+        }
+        #introText.popped {
+            transform: scale(1.15);
+            animation: none;
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.8));
+        }
+        @keyframes pulseTextGlowIntro {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(129, 140, 248, 0.7)); }
+        }
+        #introSubText {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #9ca3af;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .start-btn {
+            font-size: 1.1rem;
+            padding: 14px 36px;
+            border-radius: 14px;
+            animation: pulseBtn 2s infinite ease-in-out;
+        }
+        @keyframes pulseBtn {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(168, 85, 247, 0.8); }
+        }
+
+        /* Top HUD Header */
+        #hudContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hud-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        /* Cheese Clicker HUD */
+        .clicker-card {
+            pointer-events: auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-radius: 18px;
+        }
+        .cheese-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+            animation: floatCheese 3s ease-in-out infinite alternate;
+        }
+        @keyframes floatCheese {
+            0% { transform: translateY(-2px) rotate(-5deg); }
+            100% { transform: translateY(2px) rotate(5deg); }
+        }
+        .clicker-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .cheese-count-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            line-height: 1.1;
+        }
+        .rank-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #a7f3d0;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 3px;
+            display: inline-block;
+        }
+        .combo-badge {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #f43f5e;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 4px 10px;
+            border-radius: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .combo-badge.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Audio HUD */
+        .audio-card {
+            pointer-events: auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-radius: 18px;
+        }
+        .audio-toggle-btn {
+            background: none;
+            border: none;
+            color: #f3f4f6;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .audio-toggle-btn:hover {
+            transform: scale(1.15);
+        }
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            font-weight: 600;
+        }
+        .glass-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            transition: background 0.2s;
+        }
+        .glass-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-purple);
+        }
+        .glass-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 8px var(--accent-purple);
+        }
+
+        /* Bottom Controls HUD */
+        .hud-bottom-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            pointer-events: none;
+            margin-bottom: 10px;
+        }
+        .hud-bottom-bar .glass-btn {
+            pointer-events: auto;
+        }
+
+        /* 3D Rat Image Wrapper */
+        .image-wrapper {
+            position: relative;
+            z-index: 10;
+            cursor: grab;
+            opacity: 0;
+            transform: scale(0.5) rotateZ(-15deg) translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            visibility: hidden;
+        }
+        .image-wrapper:active {
+            cursor: grabbing;
+        }
+        .image-wrapper.visible {
+            visibility: visible;
+            opacity: 0;
+            animation: popIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .image-wrapper:focus-visible {
+            outline: 3px solid var(--focus-outline-color);
+            outline-offset: 8px;
+            border-radius: 22px;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5) rotateZ(-15deg) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) rotateZ(0deg) translateY(0px); }
+        }
         
         #ratImage {
-            display: block; max-width: 75vw; max-height: 65vh;
-            object-fit: contain; border-radius: 15px;
+            display: block;
+            max-width: 75vw;
+            max-height: 62vh;
+            object-fit: contain;
+            border-radius: 20px;
             box-shadow: 
-                0 0 18px 6px var(--glow-color-base), 
-                0 0 40px 15px var(--glow-color-base),
-                0 0 80px 25px var(--glow-color-base),
-                inset 0 0 1px 1px var(--image-border-color);
-            transition: transform 0.05s linear, box-shadow 0.3s ease-out; /* Faster transform for direct feel */
-            transform-style: preserve-3d; will-change: transform, box-shadow;
+                0 0 25px 8px var(--glow-color-base),
+                0 0 50px 20px var(--glow-color-base),
+                0 0 90px 30px var(--glow-color-base),
+                inset 0 0 2px 1px var(--image-border-color);
+            transition: transform 0.05s linear, box-shadow 0.3s ease-out;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
         }
-        #ratImage.is-levitating { animation: levitateIdle 2s ease-in-out infinite alternate; }
+
+        /* Specular Dynamic Shine Effect Overlay */
+        .rat-shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.3) 100%);
+            mix-blend-mode: overlay;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+
+        #ratImage.is-levitating { animation: levitateIdle 2.5s ease-in-out infinite alternate; }
         @keyframes levitateIdle {
             0% { transform: translateY(calc(var(--levitation-distance) * -1)) scale(1) rotateX(0deg) rotateY(0deg); }
             100% { transform: translateY(var(--levitation-distance)) scale(1) rotateX(0deg) rotateY(0deg); }
@@ -71,9 +452,8 @@
                 1px 1px 0 0 var(--thickness-base-color), 2px 2px 0 0 var(--thickness-base-color),
                 3px 3px 0 0 var(--thickness-base-color), 
                 calc(var(--thickness-depth-px) * 1px) calc(var(--thickness-depth-px) * 1px) 0 0 var(--thickness-base-color),
-                calc(var(--thickness-depth-px) * -0.5px) calc(var(--thickness-depth-px) * -0.5px) 0 0 hsla(var(--side-hue, 230), var(--side-saturation, 15%), var(--side-base-lightness, 12%), var(--dynamic-thickness-highlight-opacity)),
-                0 0 25px 8px var(--glow-color-interactive), 0 0 55px 22px var(--glow-color-interactive),
-                0 0 100px 35px var(--glow-color-interactive), inset 0 0 1px 1px var(--image-border-color);
+                0 0 30px 10px var(--glow-color-interactive), 0 0 65px 25px var(--glow-color-interactive),
+                0 0 120px 40px var(--glow-color-interactive), inset 0 0 2px 1px var(--image-border-color);
         }
 
         #ratImage.is-clicked-bounce { animation: bouncePop 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -81,66 +461,299 @@
 
         /* Shake Animation */
         #ratImage.is-shaking {
-            animation: visualShake 0.4s linear 1; /* Play once, short duration */
+            animation: visualShake 0.4s linear 1;
         }
         @keyframes visualShake {
             0%, 100% { transform: translate(0, 0) rotate(0); }
-            10% { transform: translate(-3px, 2px) rotate(-0.5deg); }
-            20% { transform: translate(3px, -3px) rotate(0.5deg); }
-            30% { transform: translate(-3px, 3px) rotate(0deg); }
-            40% { transform: translate(3px, -2px) rotate(0.5deg); }
-            50% { transform: translate(-3px, 2px) rotate(-0.5deg); }
-            60% { transform: translate(2px, -3px) rotate(0deg); }
-            70% { transform: translate(-3px, 3px) rotate(0.5deg); }
-            80% { transform: translate(3px, -2px) rotate(-0.5deg); }
-            90% { transform: translate(-2px, 1px) rotate(0deg); }
+            10% { transform: translate(-4px, 3px) rotate(-1deg); }
+            20% { transform: translate(4px, -4px) rotate(1deg); }
+            30% { transform: translate(-4px, 4px) rotate(0deg); }
+            40% { transform: translate(4px, -3px) rotate(1deg); }
+            50% { transform: translate(-4px, 3px) rotate(-1deg); }
+            60% { transform: translate(3px, -4px) rotate(0deg); }
+            70% { transform: translate(-4px, 4px) rotate(1deg); }
+            80% { transform: translate(4px, -3px) rotate(-1deg); }
+            90% { transform: translate(-3px, 2px) rotate(0deg); }
         }
 
-        /* Rat Fact Popup */
+        /* Dynamic Floating Click Text */
+        .click-float-text {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 12px rgba(251, 191, 36, 0.8), 0 2px 4px rgba(0,0,0,0.8);
+            animation: floatUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes floatUpFade {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.6) translateY(0); }
+            50% { transform: translate(-50%, -50%) scale(1.2) translateY(-25px); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1) translateY(-50px); }
+        }
+
+        /* Rat Fact Toast Popup */
         #ratFactPopup {
             position: fixed;
-            bottom: 30px; /* Slightly higher */
+            bottom: 85px;
             left: 50%;
-            transform: translateX(-50%) translateY(150%); /* Start further off-screen */
-            background-color: rgba(15, 15, 25, 0.9);
-            color: #dde0ff;
-            padding: 18px 28px;
-            border-radius: 12px;
-            border: 1px solid rgba(120, 120, 220, 0.4);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.35);
-            font-size: 0.95rem;
-            max-width: 85%;
+            transform: translateX(-50%) translateY(120%);
+            padding: 16px 26px;
+            max-width: 90%;
+            width: 480px;
             text-align: center;
             z-index: 150;
             opacity: 0;
             transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease-out;
+            pointer-events: none;
         }
         #ratFactPopup.visible {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
+            pointer-events: auto;
+        }
+        .fact-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-purple);
+            margin-bottom: 4px;
+        }
+        .fact-body {
+            font-size: 0.95rem;
+            color: #e5e7eb;
+            line-height: 1.4;
+        }
+
+        /* Rat Fact Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 9, 19, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 250;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            width: 90%;
+            max-width: 520px;
+            max-height: 80vh;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .modal-close-btn:hover { color: #fff; }
+        .fact-display-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #e5e7eb;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Rank Up Banner */
+        #rankUpBanner {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50px) scale(0.8);
+            z-index: 180;
+            padding: 16px 32px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(168, 85, 247, 0.25));
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+        }
+        #rankUpBanner.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+        .rank-up-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .rank-up-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            margin-top: 2px;
         }
         
+        @media (max-width: 640px) {
+            #hudContainer { padding: 12px; }
+            .clicker-card { padding: 8px 14px; gap: 10px; }
+            .cheese-icon { font-size: 1.7rem; }
+            .cheese-count-val { font-size: 1.2rem; }
+            .rank-badge { font-size: 0.65rem; padding: 2px 6px; }
+            .audio-card { padding: 8px 12px; gap: 10px; }
+            .slider-group { display: none; } /* Hide sliders on small screens to fit audio button */
+            .hud-bottom-bar { flex-wrap: wrap; gap: 8px; }
+            .glass-btn { padding: 8px 14px; font-size: 0.8rem; }
+            #ratImage { max-width: 88vw; max-height: 55vh; }
+        }
+
         @media (prefers-reduced-motion: reduce) { 
-            #starryBackgroundContainer, .shooting-star, #introText, 
+            #starryBackgroundContainer, #particleCanvas, #introText,
             .image-wrapper, .image-wrapper.visible, 
             #ratImage, #ratImage.is-levitating, #ratImage.is-clicked-bounce, #ratImage.is-shaking,
-            #ratFactPopup { 
+            #ratFactPopup, .cheese-icon {
                 animation: none !important; 
             }
-            #ratImage { box-shadow: 0 0 15px 5px var(--glow-color-base), 0 0 30px 10px var(--glow-color-base), inset 0 0 1px 1px var(--image-border-color); }
+            #ratImage { box-shadow: 0 0 20px 5px var(--glow-color-base), inset 0 0 2px 1px var(--image-border-color); }
         }
     </style>
 </head>
 <body>
+    <canvas id="particleCanvas"></canvas>
+
     <div id="starryBackgroundContainer">
         <div id="stars1"></div><div id="stars2"></div><div id="stars3"></div>
     </div>
-    <div id="introScreen"><div id="introText">The Big Rat Experience</div><div id="introSubText">Tap Here to Begin</div></div>
-    <div class="image-wrapper" tabindex="0">
-        <img src="https://raw.githubusercontent.com/zryr/big-rat/9f9a0b56c085cd06ee4726d7f51921d1c2f147c6/BigRat-Optimized.jpg" alt="A large, fluffy rat." id="ratImage">
-    </div>
-    <div id="ratFactPopup"></div>
 
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <!-- Intro Overlay -->
+    <div id="introScreen">
+        <div class="glass-panel intro-card">
+            <div id="introText">The Big Rat</div>
+            <div id="introSubText">A Cosmic Interactive Experience</div>
+            <button class="glass-btn primary start-btn" id="startBtn">Enter Experience 🚀</button>
+        </div>
+    </div>
+
+    <!-- HUD Container -->
+    <div id="hudContainer">
+        <div class="hud-top-bar">
+            <!-- Clicker Stats Card -->
+            <div class="glass-panel clicker-card">
+                <div class="cheese-icon">🧀</div>
+                <div class="clicker-info">
+                    <div class="cheese-count-val" id="cheeseCounter">0 Cheese</div>
+                    <div class="rank-badge" id="rankBadge">Cheese Novice</div>
+                </div>
+                <div class="combo-badge" id="comboBadge">x1</div>
+            </div>
+
+            <!-- Audio Controls Card -->
+            <div class="glass-panel audio-card">
+                <button class="audio-toggle-btn" id="muteToggleBtn" title="Toggle Mute">🔊</button>
+                <div class="slider-group">
+                    <div class="slider-row">
+                        <span>🎵</span>
+                        <input type="range" id="musicVolumeSlider" class="glass-slider" min="0" max="1" step="0.05" value="0.4" title="Music Volume">
+                    </div>
+                    <div class="slider-row">
+                        <span>🔊</span>
+                        <input type="range" id="sfxVolumeSlider" class="glass-slider" min="0" max="1" step="0.05" value="0.7" title="SFX Volume">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hud-bottom-bar">
+            <button class="glass-btn" id="openFactModalBtn">💡 Rat Facts</button>
+            <button class="glass-btn" id="toggleParticlesBtn">✨ Particles: ON</button>
+            <button class="glass-btn" id="resetStatsBtn">🔄 Reset Cheese</button>
+        </div>
+    </div>
+
+    <!-- Rank Up Toast Banner -->
+    <div class="glass-panel" id="rankUpBanner">
+        <div class="rank-up-title">🎉 Rank Up!</div>
+        <div class="rank-up-name" id="rankUpName">Rodent Apprentice</div>
+    </div>
+
+    <!-- 3D Rat Card -->
+    <div class="image-wrapper" tabindex="0">
+        <img src="BigRat-Optimized.jpg" alt="A large, fluffy rat." id="ratImage">
+        <div class="rat-shine"></div>
+    </div>
+
+    <!-- Fact Toast Popup -->
+    <div class="glass-panel" id="ratFactPopup">
+        <div class="fact-title">Rat Fact 💡</div>
+        <div class="fact-body" id="factToastText">Loading rat facts...</div>
+    </div>
+
+    <!-- Rat Fact Modal -->
+    <div class="modal-overlay" id="ratFactModal">
+        <div class="glass-panel modal-card">
+            <div class="modal-header">
+                <div class="modal-title"><span>🐀</span> Rat Knowledge Base</div>
+                <button class="modal-close-btn" id="closeFactModalBtn">&times;</button>
+            </div>
+            <div class="fact-display-box" id="modalFactText">
+                Click "Next Fact" to discover amazing rat facts!
+            </div>
+            <div style="display: flex; justify-content: center; gap: 12px;">
+                <button class="glass-btn primary" id="nextFactBtn">Next Fact 🎲</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Files -->
     <audio id="bgMusic" loop><source src="sounds/background-music.mp3" type="audio/mpeg"></audio>
     <audio id="tapSfx"><source src="sounds/tap-sfx.mp3" type="audio/mpeg"></audio>
     <audio id="returnSfx"><source src="sounds/Swish-Return.mp3" type="audio/mpeg"></audio>
@@ -148,107 +761,420 @@
     <audio id="screamSfx"><source src="sounds/Rat-Scream.mp3" type="audio/mpeg"></audio>
     <audio id="twinkleSfx"><source src="sounds/Twinkle.mp3" type="audio/mpeg"></audio>
 
-
     <script>
+        // --- CONSTANTS ---
         const TILT_MAX_ROTATION = 18;
         const TILT_RETURN_SPEED_MS = 300;
         const TILT_SCALE_EFFECT = 1.04; 
         const MOUSE_MOVE_THROTTLE_MS = 8; 
-        const IDLE_TIMEOUT = 2000; // For levitation
+        const IDLE_TIMEOUT = 2000;
         const Y_AXIS_SENSITIVITY_BOOST = 1.0; 
-        const SHOOTING_STAR_INTERVAL_MIN = 3000; 
-        const SHOOTING_STAR_INTERVAL_MAX = 8000;
         const THICKNESS_HIGHLIGHT_BASE_OPACITY = 0.6;
         const THICKNESS_HIGHLIGHT_RANGE = 0.4;
 
-        // Shake Detection Constants
-        const MOUSE_SHAKE_HISTORY_LENGTH = 6; // Number of past mouse positions to track
-        const MOUSE_SHAKE_TIME_WINDOW_MS = 250; // Time window for these movements
-        const MOUSE_SHAKE_MIN_DISTANCE = 60;   // Min total pixel travel for shake
-        const MOUSE_SHAKE_DIRECTION_CHANGES = 3; // Min direction changes for shake
-        const SHAKE_COOLDOWN_MS = 2000; // Cooldown after a shake
+        // Shake Detection
+        const MOUSE_SHAKE_HISTORY_LENGTH = 6;
+        const MOUSE_SHAKE_TIME_WINDOW_MS = 250;
+        const MOUSE_SHAKE_MIN_DISTANCE = 60;
+        const MOUSE_SHAKE_DIRECTION_CHANGES = 3;
+        const SHAKE_COOLDOWN_MS = 2000;
 
-        // Rat Facts Constants
-        const RAT_FACT_INTERVAL_MIN = 20000; // 20 seconds
-        const RAT_FACT_INTERVAL_MAX = 40000; // 40 seconds
-        const RAT_FACT_DISPLAY_DURATION = 6000; // 6 seconds
+        // Rat Facts Timers
+        const RAT_FACT_INTERVAL_MIN = 25000;
+        const RAT_FACT_INTERVAL_MAX = 45000;
+        const RAT_FACT_DISPLAY_DURATION = 7000;
 
-        // Squeak Easter Egg Constants
-        const SQUEAK_INTERVAL_MIN = 30000; // 30 seconds
-        const SQUEAK_INTERVAL_MAX = 90000; // 1.5 minutes
+        // Squeak Easter Egg
+        const SQUEAK_INTERVAL_MIN = 35000;
+        const SQUEAK_INTERVAL_MAX = 90000;
 
+        // Ranks
+        const RANKS = [
+            { minCheese: 0, name: "Cheese Novice" },
+            { minCheese: 10, name: "Squeak Enthusiast" },
+            { minCheese: 25, name: "Rodent Apprentice" },
+            { minCheese: 50, name: "Cheese Connoisseur" },
+            { minCheese: 100, name: "Rat Whisperer" },
+            { minCheese: 250, name: "Gouda Guardian" },
+            { minCheese: 500, name: "Cheddar Champion" },
+            { minCheese: 1000, name: "Supreme Rat Lord" }
+        ];
 
-        const introScreen = document.getElementById('introScreen'); /* ... other consts ... */
+        const RAT_FACTS = [
+            "Rats are surprisingly clean and groom themselves constantly!",
+            "A rat's teeth never stop growing, growing up to 5 inches per year.",
+            "Rats can emit high-frequency laughter when tickled or playing.",
+            "Rats are exceptional swimmers and can tread water for up to 3 days.",
+            "A group of rats is officially called a 'mischief'.",
+            "Rats use their whiskers to sense tiny changes in air currents and spaces.",
+            "Rats have fantastic spatial memory and can navigate complex mazes easily.",
+            "Rats demonstrate empathy and will rescue fellow rats in distress.",
+            "Rats can jump over 3 feet in the air, which is 5 times their height!",
+            "Rats' tails help them balance, communicate, and regulate body temperature."
+        ];
+
+        // DOM Elements
+        const introScreen = document.getElementById('introScreen');
         const introText = document.getElementById('introText');
+        const startBtn = document.getElementById('startBtn');
         const imageWrapper = document.querySelector('.image-wrapper');
         const ratImage = document.getElementById('ratImage');
+
+        // Audio Elements
         const bgMusic = document.getElementById('bgMusic'); 
         const tapSfx = document.getElementById('tapSfx');   
         const returnSfx = document.getElementById('returnSfx'); 
         const squeakSfx = document.getElementById('squeakSfx');
         const screamSfx = document.getElementById('screamSfx');
         const twinkleSfx = document.getElementById('twinkleSfx');
+
+        // HUD Elements
+        const cheeseCounterEl = document.getElementById('cheeseCounter');
+        const rankBadgeEl = document.getElementById('rankBadge');
+        const comboBadgeEl = document.getElementById('comboBadge');
+        const muteToggleBtn = document.getElementById('muteToggleBtn');
+        const musicVolumeSlider = document.getElementById('musicVolumeSlider');
+        const sfxVolumeSlider = document.getElementById('sfxVolumeSlider');
+        const toggleParticlesBtn = document.getElementById('toggleParticlesBtn');
+        const resetStatsBtn = document.getElementById('resetStatsBtn');
+        const openFactModalBtn = document.getElementById('openFactModalBtn');
+        const closeFactModalBtn = document.getElementById('closeFactModalBtn');
+        const nextFactBtn = document.getElementById('nextFactBtn');
+        const ratFactModal = document.getElementById('ratFactModal');
+        const modalFactText = document.getElementById('modalFactText');
         const ratFactPopup = document.getElementById('ratFactPopup');
-        const starryBackgroundContainer = document.getElementById('starryBackgroundContainer');
-        
+        const factToastText = document.getElementById('factToastText');
+        const rankUpBanner = document.getElementById('rankUpBanner');
+        const rankUpName = document.getElementById('rankUpName');
+
+        // State Variables
         let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let experienceStarted = false;
-        let idleTimer = null; // For levitation
+        let particlesEnabled = true;
+        let isMuted = false;
+        let idleTimer = null;
         let isBouncing = false; 
         let currentTiltX = 0, currentTiltY = 0, currentScale = 1;
-        let shootingStarTimer = null;
-        let mouseMoveHistory = []; // For PC shake detection
+        let mouseMoveHistory = [];
         let lastShakeTimestamp = 0;
         let ratFactTimer = null;
         let squeakTimer = null;
+        let currentFactIndex = 0;
 
-        const RAT_FACTS = [
-            "Rats are surprisingly clean and groom themselves often.",
-            "A rat's teeth never stop growing!",
-            "Rats can laugh (in a way humans can't hear without equipment).",
-            "Rats are excellent swimmers and can hold their breath for minutes.",
-            "A group of rats is called a 'mischief'.",
-            "Rats use their whiskers to navigate in the dark.",
-            "Rats have fantastic memories and can remember routes.",
-            "Some rats can even learn to recognize their names."
-        ];
+        // Clicker State
+        let cheeseCount = parseInt(localStorage.getItem('bigRat_cheeseCount') || '0', 10);
+        let comboCount = 0;
+        let lastClickTime = 0;
+        let comboTimer = null;
+        let currentRankIndex = 0;
 
-        // --- CORE FUNCTIONS (condensed for brevity) ---
-        requestFullscreen = function() { const elem = document.documentElement; if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => {}); } else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen().catch(err => {}); } else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }};
-        startLevitation = function() { if (!experienceStarted || prefersReducedMotion || imageWrapper.classList.contains('is-interacting') || isBouncing) return; ratImage.classList.add('is-levitating'); };
-        stopLevitation = function() { ratImage.classList.remove('is-levitating'); };
-        
+        // --- PARTICLE CANVAS SYSTEM ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, type = 'sparkle') {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.size = type === 'crumb' ? Math.random() * 6 + 3 : Math.random() * 4 + 1.5;
+                this.vx = (Math.random() - 0.5) * (type === 'crumb' || type === 'burst' ? 6 : 1.5);
+                this.vy = (Math.random() - 0.5) * (type === 'crumb' || type === 'burst' ? 6 : 1.5);
+                this.gravity = type === 'crumb' ? 0.15 : 0;
+                this.life = 1;
+                this.decay = type === 'burst' ? Math.random() * 0.03 + 0.015 : Math.random() * 0.02 + 0.01;
+
+                if (type === 'crumb') {
+                    this.color = '#fbbf24';
+                } else if (type === 'burst') {
+                    const colors = ['#c084fc', '#60a5fa', '#fbbf24', '#ffffff'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    const colors = ['#818cf8', '#c084fc', '#e0e7ff'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += this.gravity;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+
+                if (this.type === 'crumb') {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        function createParticleBurst(x, y, count = 20, type = 'burst') {
+            if (!particlesEnabled || prefersReducedMotion) return;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(x, y, type));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (particlesEnabled && !prefersReducedMotion) {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Cursor Particle Trail
+        let lastParticleTime = 0;
+        window.addEventListener('mousemove', (e) => {
+            if (!particlesEnabled || prefersReducedMotion || !experienceStarted) return;
+            const now = Date.now();
+            if (now - lastParticleTime > 40) {
+                particles.push(new Particle(e.clientX, e.clientY, 'sparkle'));
+                lastParticleTime = now;
+            }
+        });
+
+        // --- AUDIO ENGINE ---
+        function updateAudioVolumes() {
+            const musicVol = isMuted ? 0 : parseFloat(musicVolumeSlider.value);
+            const sfxVol = isMuted ? 0 : parseFloat(sfxVolumeSlider.value);
+
+            bgMusic.volume = musicVol;
+            tapSfx.volume = sfxVol * 0.8;
+            returnSfx.volume = sfxVol;
+            squeakSfx.volume = sfxVol * 0.5;
+            screamSfx.volume = sfxVol * 0.8;
+            twinkleSfx.volume = sfxVol * 0.6;
+        }
+
+        muteToggleBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            muteToggleBtn.textContent = isMuted ? '🔇' : '🔊';
+            updateAudioVolumes();
+        });
+
+        musicVolumeSlider.addEventListener('input', updateAudioVolumes);
+        sfxVolumeSlider.addEventListener('input', updateAudioVolumes);
+
+        // --- CHEESE CLICKER & STATS ---
+        function updateClickerDisplay() {
+            cheeseCounterEl.textContent = `${cheeseCount.toLocaleString()} Cheese`;
+            localStorage.setItem('bigRat_cheeseCount', cheeseCount);
+
+            // Determine Rank
+            let newRankIndex = 0;
+            for (let i = RANKS.length - 1; i >= 0; i--) {
+                if (cheeseCount >= RANKS[i].minCheese) {
+                    newRankIndex = i;
+                    break;
+                }
+            }
+
+            rankBadgeEl.textContent = RANKS[newRankIndex].name;
+
+            // Check Rank Up
+            if (newRankIndex > currentRankIndex && experienceStarted) {
+                triggerRankUp(RANKS[newRankIndex].name);
+            }
+            currentRankIndex = newRankIndex;
+        }
+
+        function triggerRankUp(rankName) {
+            rankUpName.textContent = rankName;
+            rankUpBanner.classList.add('visible');
+
+            twinkleSfx.currentTime = 0;
+            twinkleSfx.play().catch(e => {});
+
+            createParticleBurst(window.innerWidth / 2, 120, 40, 'burst');
+
+            setTimeout(() => {
+                rankUpBanner.classList.remove('visible');
+            }, 3500);
+        }
+
+        function registerRatClick(x, y) {
+            const now = Date.now();
+            if (now - lastClickTime < 800) {
+                comboCount++;
+            } else {
+                comboCount = 1;
+            }
+            lastClickTime = now;
+
+            clearTimeout(comboTimer);
+            comboTimer = setTimeout(() => {
+                comboCount = 0;
+                comboBadgeEl.classList.remove('active');
+            }, 1200);
+
+            const multiplier = Math.min(5, Math.floor(comboCount / 3) + 1);
+            const addedCheese = 1 * multiplier;
+            cheeseCount += addedCheese;
+
+            if (multiplier > 1) {
+                comboBadgeEl.textContent = `x${multiplier} COMBO! 🔥`;
+                comboBadgeEl.classList.add('active');
+            } else {
+                comboBadgeEl.classList.remove('active');
+            }
+
+            updateClickerDisplay();
+
+            // Spawn floating text
+            spawnFloatText(x, y, `+${addedCheese} Cheese 🧀`);
+
+            // Particle Crumb burst
+            createParticleBurst(x, y, 12, 'crumb');
+        }
+
+        function spawnFloatText(x, y, text) {
+            const el = document.createElement('div');
+            el.className = 'click-float-text';
+            el.textContent = text;
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), 800);
+        }
+
+        resetStatsBtn.addEventListener('click', () => {
+            if (confirm("Reset your cheese count and rank?")) {
+                cheeseCount = 0;
+                comboCount = 0;
+                currentRankIndex = 0;
+                updateClickerDisplay();
+            }
+        });
+
+        // Toggle Particles
+        toggleParticlesBtn.addEventListener('click', () => {
+            particlesEnabled = !particlesEnabled;
+            toggleParticlesBtn.textContent = particlesEnabled ? '✨ Particles: ON' : '✨ Particles: OFF';
+            if (!particlesEnabled) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = [];
+            }
+        });
+
+        // --- CORE EXPERIENTIAL CONTROLS ---
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) { elem.requestFullscreen().catch(err => {}); }
+            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen().catch(err => {}); }
+            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
+        }
+
+        function startLevitation() {
+            if (!experienceStarted || prefersReducedMotion || imageWrapper.classList.contains('is-interacting') || isBouncing) return;
+            ratImage.classList.add('is-levitating');
+        }
+
+        function stopLevitation() {
+            ratImage.classList.remove('is-levitating');
+        }
+
         function clearAllIdleTimers() { 
             clearTimeout(idleTimer); 
-            clearTimeout(shootingStarTimer); 
             clearTimeout(ratFactTimer);
             clearTimeout(squeakTimer);
-            hideRatFact(); // Hide fact if it was visible
+            hideRatFact();
         }
+
         function resetIdleTimer() { 
             if (!experienceStarted) return; 
             stopLevitation(); 
             clearAllIdleTimers(); 
             if (!prefersReducedMotion) { 
                 idleTimer = setTimeout(startLevitation, IDLE_TIMEOUT); 
-                scheduleShootingStar(); 
                 scheduleRatFact();
                 scheduleSqueak();
             }
-        };
-        
-        handleIntroFadeOut = function(event) { if (event.target === introScreen && event.propertyName === 'opacity' && introScreen.classList.contains('hidden')) { imageWrapper.classList.add('visible'); if (prefersReducedMotion) { imageWrapper.style.opacity = '1'; imageWrapper.style.transform = 'scale(1)'; } else { resetIdleTimer(); bgMusic.play().catch(e => {}); } introScreen.style.display = 'none'; introScreen.removeEventListener('transitionend', handleIntroFadeOut); }};
-        startExperience = function() { if (experienceStarted) return; experienceStarted = true; requestFullscreen(); introText.classList.add('popped'); if (!prefersReducedMotion) { tapSfx.currentTime = 0; tapSfx.play().catch(e => {}); } introScreen.addEventListener('transitionend', handleIntroFadeOut); setTimeout(() => introScreen.classList.add('hidden'), 300); };
+        }
+
+        function handleIntroFadeOut(event) {
+            if (event.target === introScreen && (event.propertyName === 'opacity' || event.type === 'transitionend')) {
+                imageWrapper.classList.add('visible');
+                if (prefersReducedMotion) {
+                    imageWrapper.style.opacity = '1';
+                    imageWrapper.style.transform = 'scale(1)';
+                } else {
+                    resetIdleTimer();
+                    bgMusic.play().catch(e => {});
+                }
+                introScreen.style.display = 'none';
+                introScreen.removeEventListener('transitionend', handleIntroFadeOut);
+            }
+        }
+
+        function startExperience() {
+            if (experienceStarted) return;
+            experienceStarted = true;
+            requestFullscreen();
+            updateAudioVolumes();
+            updateClickerDisplay();
+
+            introText.classList.add('popped');
+            if (!prefersReducedMotion) {
+                tapSfx.currentTime = 0;
+                tapSfx.play().catch(e => {});
+                createParticleBurst(window.innerWidth / 2, window.innerHeight / 2, 50, 'burst');
+            }
+            introScreen.addEventListener('transitionend', handleIntroFadeOut);
+            setTimeout(() => {
+                introScreen.classList.add('hidden');
+                // Fallback fade out if transitionend fails
+                setTimeout(() => handleIntroFadeOut({ target: introScreen, propertyName: 'opacity' }), 700);
+            }, 300);
+        }
+
+        startBtn.addEventListener('click', startExperience);
         introScreen.addEventListener('click', startExperience);
-        introScreen.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') startExperience(); });
-        const throttle = function(func, limit) { let inThrottle; return function(...args) { const context = this; if (!inThrottle) { func.apply(context, args); inThrottle = true; setTimeout(() => inThrottle = false, limit); }}};
-        function createShootingStar() { /* ... Same as previous ... */ }
-        function scheduleShootingStar() { /* ... Same as previous ... */ }
-        createShootingStar = function() { if (prefersReducedMotion || !experienceStarted || document.hidden) { scheduleShootingStar(); return; } const star = document.createElement('div'); star.classList.add('shooting-star'); starryBackgroundContainer.appendChild(star); const fromSide = Math.random() > 0.5; let startX, startY, endX, endY, angleDeg; if (fromSide) { startY = Math.random() * window.innerHeight * 0.8; startX = (Math.random() > 0.5) ? -100 : window.innerWidth + 100; endY = startY + (Math.random() * 200 - 100); endX = (startX < 0) ? window.innerWidth + 100 : -100; } else { startX = Math.random() * window.innerWidth; startY = -100; endX = startX + (Math.random() * 300 - 150); endY = window.innerHeight + 100; } const visualAngleDeg = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI - 90 + (Math.random() * 20 - 10); star.style.transform = `rotate(${visualAngleDeg}deg)`; star.style.left = `${startX}px`; star.style.top = `${startY}px`; star.animate([ { opacity: 0, transform: `translate(0,0) rotate(${visualAngleDeg}deg) scaleY(0.3)`}, { opacity: 1, offset: 0.1, transform: `translate(0,0) rotate(${visualAngleDeg}deg) scaleY(1)`}, { opacity: 0, transform: `translate(${endX - startX}px, ${endY - startY}px) rotate(${visualAngleDeg}deg) scaleY(0.3)`} ], { duration: (Math.random() * 1500) + 1000, easing: 'cubic-bezier(0.6, -0.28, 0.735, 0.045)', }).onfinish = () => { star.remove(); }; scheduleShootingStar(); };
-        scheduleShootingStar = function() { if (prefersReducedMotion || !experienceStarted) return; clearTimeout(shootingStarTimer); const interval = (Math.random() * (SHOOTING_STAR_INTERVAL_MAX - SHOOTING_STAR_INTERVAL_MIN)) + SHOOTING_STAR_INTERVAL_MIN; shootingStarTimer = setTimeout(createShootingStar, interval); };
 
+        // Throttle helper
+        function throttle(func, limit) {
+            let inThrottle;
+            return function(...args) {
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        }
 
-        // --- SHAKE DETECTION & EFFECT ---
+        // --- SHAKE DETECTION ---
         function detectShake(clientX, clientY) {
             if (prefersReducedMotion || Date.now() - lastShakeTimestamp < SHAKE_COOLDOWN_MS) return;
 
@@ -259,15 +1185,13 @@
 
             if (mouseMoveHistory.length < MOUSE_SHAKE_HISTORY_LENGTH) return;
 
-            // Check time window
             if (mouseMoveHistory[MOUSE_SHAKE_HISTORY_LENGTH - 1].time - mouseMoveHistory[0].time > MOUSE_SHAKE_TIME_WINDOW_MS) {
                 return; 
             }
 
             let totalDistance = 0;
             let directionChanges = 0;
-            let lastDeltaXSign = 0;
-            let lastDeltaYSign = 0;
+            let lastDeltaXSign = 0, lastDeltaYSign = 0;
 
             for (let i = 1; i < mouseMoveHistory.length; i++) {
                 const deltaX = mouseMoveHistory[i].x - mouseMoveHistory[i-1].x;
@@ -277,7 +1201,7 @@
                 const currentDeltaXSign = Math.sign(deltaX);
                 const currentDeltaYSign = Math.sign(deltaY);
 
-                if (i > 1) { // Need at least two segments to detect a change
+                if (i > 1) {
                     if ((currentDeltaXSign !== 0 && lastDeltaXSign !== 0 && currentDeltaXSign !== lastDeltaXSign) ||
                         (currentDeltaYSign !== 0 && lastDeltaYSign !== 0 && currentDeltaYSign !== lastDeltaYSign)) {
                         directionChanges++;
@@ -289,40 +1213,38 @@
             
             if (totalDistance > MOUSE_SHAKE_MIN_DISTANCE && directionChanges >= MOUSE_SHAKE_DIRECTION_CHANGES) {
                 triggerVisualShake();
-                mouseMoveHistory = []; // Reset history after shake
+                mouseMoveHistory = [];
             }
         }
 
         function triggerVisualShake() {
             lastShakeTimestamp = Date.now();
             stopLevitation();
-            clearAllIdleTimers(); // Pause other idle effects
+            clearAllIdleTimers();
 
             screamSfx.currentTime = 0;
-            screamSfx.volume = 0.6; // Adjust volume as needed
-            screamSfx.play().catch(e => console.warn("Scream SFX failed:", e));
+            screamSfx.play().catch(e => {});
 
             ratImage.classList.add('is-shaking');
-            const currentTransform = ratImage.style.transform; // Store current tilt/scale
+            const currentTransform = ratImage.style.transform;
 
             ratImage.addEventListener('animationend', () => {
                 ratImage.classList.remove('is-shaking');
-                ratImage.style.transform = currentTransform; // Restore previous transform
-                resetIdleTimer(); // Resume normal idle behavior after cooldown implied by SHAKE_COOLDOWN_MS
+                ratImage.style.transform = currentTransform;
+                resetIdleTimer();
             }, { once: true });
         }
 
-        // --- RAT FACTS ---
+        // --- RAT FACTS & MODAL ---
         function displayRatFact() {
-             if (prefersReducedMotion || !experienceStarted || document.hidden || imageWrapper.classList.contains('is-interacting') || isBouncing) {
+            if (prefersReducedMotion || !experienceStarted || document.hidden || imageWrapper.classList.contains('is-interacting') || isBouncing) {
                 scheduleRatFact(); return;
             }
             const fact = RAT_FACTS[Math.floor(Math.random() * RAT_FACTS.length)];
-            ratFactPopup.textContent = fact;
+            factToastText.textContent = fact;
             ratFactPopup.classList.add('visible');
 
             twinkleSfx.currentTime = 0;
-            twinkleSfx.volume = 0.5;
             twinkleSfx.play().catch(e => {});
 
             setTimeout(() => {
@@ -330,7 +1252,11 @@
                 scheduleRatFact();
             }, RAT_FACT_DISPLAY_DURATION);
         }
-        function hideRatFact() { ratFactPopup.classList.remove('visible'); }
+
+        function hideRatFact() {
+            ratFactPopup.classList.remove('visible');
+        }
+
         function scheduleRatFact() {
             if (prefersReducedMotion || !experienceStarted) return;
             clearTimeout(ratFactTimer);
@@ -338,16 +1264,38 @@
             ratFactTimer = setTimeout(displayRatFact, interval);
         }
 
-        // --- SQUEAK EASTER EGG ---
+        // Modal Controls
+        openFactModalBtn.addEventListener('click', () => {
+            currentFactIndex = Math.floor(Math.random() * RAT_FACTS.length);
+            modalFactText.textContent = RAT_FACTS[currentFactIndex];
+            ratFactModal.classList.add('active');
+        });
+
+        closeFactModalBtn.addEventListener('click', () => {
+            ratFactModal.classList.remove('active');
+        });
+
+        ratFactModal.addEventListener('click', (e) => {
+            if (e.target === ratFactModal) ratFactModal.classList.remove('active');
+        });
+
+        nextFactBtn.addEventListener('click', () => {
+            currentFactIndex = (currentFactIndex + 1) % RAT_FACTS.length;
+            modalFactText.textContent = RAT_FACTS[currentFactIndex];
+            twinkleSfx.currentTime = 0;
+            twinkleSfx.play().catch(e => {});
+        });
+
+        // Squeak Random Event
         function playRandomSqueak() {
             if (prefersReducedMotion || !experienceStarted || document.hidden || imageWrapper.classList.contains('is-interacting') || isBouncing) {
                 scheduleSqueak(); return;
             }
             squeakSfx.currentTime = 0;
-            squeakSfx.volume = 0.25; // Subtle
             squeakSfx.play().catch(e => {});
             scheduleSqueak();
         }
+
         function scheduleSqueak() {
             if (prefersReducedMotion || !experienceStarted) return;
             clearTimeout(squeakTimer);
@@ -355,25 +1303,37 @@
             squeakTimer = setTimeout(playRandomSqueak, interval);
         }
 
-
-        function handleInteractionStart(event) { /* ... same, ensure calls clearAllIdleTimers ... */ }
-        handleInteractionStart = function(event) { if (!experienceStarted || isBouncing) return; stopLevitation(); clearAllIdleTimers(); imageWrapper.classList.add('is-interacting'); ratImage.style.transition = `transform 0.05s linear, box-shadow 0.2s ease-out`; if (event.type === 'touchstart' && !prefersReducedMotion) { tapSfx.currentTime = 0; tapSfx.play().catch(e => {}); } if (prefersReducedMotion && event.type !== 'touchstart') return; if (event.type === 'keydown' && (event.key === 'Enter' || event.key === ' ')) { currentTiltX = 0; currentTiltY = 0; currentScale = TILT_SCALE_EFFECT * 0.98; ratImage.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg) scale(${currentScale})`; } mouseMoveHistory = []; /* Clear for shake detection */};
-
+        // --- INTERACTION HANDLERS ---
+        function handleInteractionStart(event) {
+            if (!experienceStarted || isBouncing) return;
+            stopLevitation();
+            clearAllIdleTimers();
+            imageWrapper.classList.add('is-interacting');
+            ratImage.style.transition = `transform 0.05s linear, box-shadow 0.2s ease-out`;
+            if (event.type === 'touchstart' && !prefersReducedMotion) {
+                tapSfx.currentTime = 0;
+                tapSfx.play().catch(e => {});
+            }
+            if (prefersReducedMotion && event.type !== 'touchstart') return;
+            mouseMoveHistory = [];
+        }
 
         const throttledHandleInteractionMove = throttle(function handleInteractionMove(event) {
             if (!experienceStarted || !imageWrapper.classList.contains('is-interacting') || isBouncing) return;
-            if (prefersReducedMotion) { /* ... same ... */ return; }
+            if (prefersReducedMotion) return;
             
             const rect = imageWrapper.getBoundingClientRect();
             let clientX, clientY;
             if (event.type.startsWith('touch')) {
                 if (event.touches.length === 0) return;
-                clientX = event.touches[0].clientX; clientY = event.touches[0].clientY;
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
             } else {
-                clientX = event.clientX; clientY = event.clientY;
+                clientX = event.clientX;
+                clientY = event.clientY;
             }
             
-            detectShake(clientX, clientY); // Call shake detection here
+            detectShake(clientX, clientY);
 
             const x = clientX - rect.left, y = clientY - rect.top;
             const centerX = rect.width / 2, centerY = rect.height / 2;
@@ -384,37 +1344,102 @@
             currentScale = TILT_SCALE_EFFECT;
             ratImage.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg) scale(${currentScale})`;
             
-            // Dynamic Thickness Highlight (same as before)
+            // Highlight intensity
             const normXTilt = currentTiltY / TILT_MAX_ROTATION; 
             const normYTilt = currentTiltX / TILT_MAX_ROTATION; 
-            let highlightIntensity = 0;
-            if (normXTilt < 0) highlightIntensity += Math.abs(normXTilt); 
-            if (normYTilt < 0) highlightIntensity += Math.abs(normYTilt); 
-            highlightIntensity = Math.min(1, highlightIntensity); 
+            let highlightIntensity = Math.min(1, Math.abs(normXTilt) + Math.abs(normYTilt));
             const dynamicOpacity = THICKNESS_HIGHLIGHT_BASE_OPACITY + (highlightIntensity * THICKNESS_HIGHLIGHT_RANGE);
             ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', dynamicOpacity.toFixed(2));
 
         }, MOUSE_MOVE_THROTTLE_MS);
 
-        function handleInteractionEnd() { /* ... same, calls resetIdleTimer ... */ }
-        handleInteractionEnd = function() { if (!experienceStarted || isBouncing) return; const wasInteracting = imageWrapper.classList.contains('is-interacting'); imageWrapper.classList.remove('is-interacting'); ratImage.style.transition = `transform ${TILT_RETURN_SPEED_MS}ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease-out`; const isTransformed = currentTiltX !== 0 || currentTiltY !== 0 || currentScale !== 1; currentTiltX = 0; currentTiltY = 0; currentScale = 1; ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0'); if (prefersReducedMotion) { ratImage.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg) scale(${currentScale})`; stopLevitation(); } else { ratImage.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg) scale(${currentScale})`; resetIdleTimer(); if(isTransformed && wasInteracting) { returnSfx.volume = 1.0; returnSfx.currentTime = 0; returnSfx.play().catch(e => {}); } } mouseMoveHistory = []; /* Clear for shake detection */ };
-        
-        imageWrapper.addEventListener('click', function(e) { /* ... same ... */ });
-        imageWrapper.addEventListener('click', function(e) { if (!experienceStarted || prefersReducedMotion || isBouncing) return; isBouncing = true; stopLevitation(); clearAllIdleTimers(); imageWrapper.classList.add('is-interacting'); ratImage.classList.add('is-clicked-bounce'); if (!prefersReducedMotion) { tapSfx.currentTime = 0; tapSfx.volume = 0.8; tapSfx.play().catch(err => {}); } function onBounceEnd() { ratImage.classList.remove('is-clicked-bounce'); imageWrapper.classList.remove('is-interacting'); ratImage.removeEventListener('animationend', onBounceEnd); isBouncing = false; currentTiltX = 0; currentTiltY = 0; currentScale = 1; ratImage.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)'; ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0'); resetIdleTimer(); } ratImage.addEventListener('animationend', onBounceEnd, { once: true }); });
+        function handleInteractionEnd() {
+            if (!experienceStarted || isBouncing) return;
+            const wasInteracting = imageWrapper.classList.contains('is-interacting');
+            imageWrapper.classList.remove('is-interacting');
+            ratImage.style.transition = `transform ${TILT_RETURN_SPEED_MS}ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease-out`;
+            const isTransformed = currentTiltX !== 0 || currentTiltY !== 0 || currentScale !== 1;
+            currentTiltX = 0; currentTiltY = 0; currentScale = 1;
+            ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0');
+            if (prefersReducedMotion) {
+                ratImage.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+                stopLevitation();
+            } else {
+                ratImage.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+                resetIdleTimer();
+                if(isTransformed && wasInteracting) {
+                    returnSfx.currentTime = 0;
+                    returnSfx.play().catch(e => {});
+                }
+            }
+            mouseMoveHistory = [];
+        }
 
-        // Event Listeners (condensed)
-        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => { prefersReducedMotion = e.matches; stopLevitation(); clearAllIdleTimers(); ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0'); if (prefersReducedMotion) { handleInteractionEnd(); if (experienceStarted) { imageWrapper.style.animation = 'none'; imageWrapper.style.opacity = '1'; imageWrapper.style.transform = 'scale(1) rotateZ(0deg) translateY(0px)'; } else { introText.style.animation = 'none'; } ratImage.style.animation = 'none'; } else { if (experienceStarted) { imageWrapper.style.animation = ''; resetIdleTimer(); } else { introText.style.animation = ''; } } });
-        if (prefersReducedMotion) { stopLevitation(); clearAllIdleTimers(); ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0'); if (experienceStarted) { imageWrapper.style.opacity = '1'; imageWrapper.style.transform = 'scale(1) rotateZ(0deg) translateY(0px)'; ratImage.style.animation = 'none'; } else { introText.style.animation = 'none'; } }
+        // Tap/Click Rat Bounce + Clicker
+        imageWrapper.addEventListener('click', function(e) {
+            if (!experienceStarted || isBouncing) return;
+            isBouncing = true;
+            stopLevitation();
+            clearAllIdleTimers();
+            imageWrapper.classList.add('is-interacting');
+            ratImage.classList.add('is-clicked-bounce');
+
+            if (!prefersReducedMotion) {
+                tapSfx.currentTime = 0;
+                tapSfx.play().catch(err => {});
+            }
+
+            const clickX = e.clientX || window.innerWidth / 2;
+            const clickY = e.clientY || window.innerHeight / 2;
+            registerRatClick(clickX, clickY);
+
+            function onBounceEnd() {
+                ratImage.classList.remove('is-clicked-bounce');
+                imageWrapper.classList.remove('is-interacting');
+                ratImage.removeEventListener('animationend', onBounceEnd);
+                isBouncing = false;
+                currentTiltX = 0; currentTiltY = 0; currentScale = 1;
+                ratImage.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+                ratImage.style.setProperty('--dynamic-thickness-highlight-opacity', '0');
+                resetIdleTimer();
+            }
+            ratImage.addEventListener('animationend', onBounceEnd, { once: true });
+        });
+
+        // Pointer Event Listeners
         imageWrapper.addEventListener('mouseenter', handleInteractionStart);
-        imageWrapper.addEventListener('mousemove', (e) => { if (!experienceStarted || isBouncing) return; stopLevitation(); clearAllIdleTimers(); throttledHandleInteractionMove(e); });
+        imageWrapper.addEventListener('mousemove', (e) => {
+            if (!experienceStarted || isBouncing) return;
+            stopLevitation();
+            clearAllIdleTimers();
+            throttledHandleInteractionMove(e);
+        });
         imageWrapper.addEventListener('mouseleave', handleInteractionEnd);
-        imageWrapper.addEventListener('touchstart', (e) => { if(isBouncing) { e.preventDefault(); return; } handleInteractionStart(e); if (experienceStarted && !prefersReducedMotion) throttledHandleInteractionMove(e);}, { passive: false });
-        imageWrapper.addEventListener('touchmove', (e) => { if (!experienceStarted || isBouncing) return; stopLevitation(); clearAllIdleTimers(); throttledHandleInteractionMove(e); }, { passive: true });
+        imageWrapper.addEventListener('touchstart', (e) => {
+            if(isBouncing) { e.preventDefault(); return; }
+            handleInteractionStart(e);
+            if (experienceStarted && !prefersReducedMotion) throttledHandleInteractionMove(e);
+        }, { passive: false });
+        imageWrapper.addEventListener('touchmove', (e) => {
+            if (!experienceStarted || isBouncing) return;
+            stopLevitation();
+            clearAllIdleTimers();
+            throttledHandleInteractionMove(e);
+        }, { passive: true });
         imageWrapper.addEventListener('touchend', handleInteractionEnd);
         imageWrapper.addEventListener('touchcancel', handleInteractionEnd);
         imageWrapper.addEventListener('focus', handleInteractionStart);
         imageWrapper.addEventListener('blur', handleInteractionEnd);
-        imageWrapper.addEventListener('keydown', (e) => { if (!experienceStarted || isBouncing) return; if (e.key === 'Enter' || e.key === ' ') { handleInteractionStart(e); setTimeout(handleInteractionEnd, 300); }});
+        imageWrapper.addEventListener('keydown', (e) => {
+            if (!experienceStarted || isBouncing) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+                handleInteractionStart(e);
+                setTimeout(handleInteractionEnd, 300);
+            }
+        });
+
+        // Initialize display
+        updateClickerDisplay();
     </script>
 </body>
 </html>
